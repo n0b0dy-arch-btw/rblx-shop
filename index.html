@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Roblox Account Shop</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-gray-900 to-gray-800 text-white min-h-screen p-6">
+
+  <div class="max-w-5xl mx-auto space-y-10">
+    <header class="text-center space-y-2">
+      <h1 class="text-5xl font-extrabold">🔥 RBLX Supply 🔥</h1>
+      <p class="text-gray-300">Premium accounts. Instant delivery. Trusted seller.</p>
+    </header>
+
+    <!-- Stats -->
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 text-center">
+      <div class="bg-gray-800 border border-gray-700 p-5 rounded-xl shadow-inner">
+        <p class="text-gray-400">Total Accounts</p>
+        <p id="totalCount" class="text-2xl font-bold text-white">0</p>
+      </div>
+      <div class="bg-gray-800 border border-gray-700 p-5 rounded-xl shadow-inner">
+        <p class="text-gray-400">Available</p>
+        <p id="availableCount" class="text-2xl font-bold text-green-400">0</p>
+      </div>
+      <div class="bg-gray-800 border border-gray-700 p-5 rounded-xl shadow-inner">
+        <p class="text-gray-400">Sold</p>
+        <p id="soldCount" class="text-2xl font-bold text-red-400">0</p>
+      </div>
+    </div>
+
+    <!-- Available Accounts -->
+    <section>
+      <h2 class="text-3xl font-semibold mb-4">🟢 Available Accounts</h2>
+      <div id="availableList" class="grid sm:grid-cols-2 gap-4"></div>
+    </section>
+
+    <!-- Sold Accounts -->
+    <section>
+      <h2 class="text-3xl font-semibold mb-4">🔴 Sold Accounts</h2>
+      <div id="soldList" class="grid sm:grid-cols-2 gap-4 opacity-60"></div>
+    </section>
+
+    <footer class="text-center text-gray-400 pt-10 border-t border-gray-700">
+      &copy; 2025 RobloxShop.xyz – All rights reserved.
+    </footer>
+  </div>
+
+  <script>
+    // Replace this with your own list
+    const accounts = [
+      { username: "T3XG1NO", sold: false },
+      { username: "Fruswih", sold: false },
+      { username: "DO9V1", sold: false },
+      { username: "Cletize", sold: false },
+      { username: "U_JYV", sold: false }
+    ];
+
+    const discordURL = "https://discord.com/users/YOUR_USER_ID_OR_INVITE"; // replace with your link
+
+    function renderShop() {
+      const availableList = document.getElementById("availableList");
+      const soldList = document.getElementById("soldList");
+      const totalCount = document.getElementById("totalCount");
+      const soldCount = document.getElementById("soldCount");
+      const availableCount = document.getElementById("availableCount");
+
+      availableList.innerHTML = "";
+      soldList.innerHTML = "";
+
+      let sold = 0;
+      let available = 0;
+
+      accounts.forEach(account => {
+        const card = document.createElement("div");
+        card.className = "bg-gray-800 border border-gray-700 p-5 rounded-xl shadow-lg flex flex-col justify-between";
+
+        const name = document.createElement("p");
+        name.textContent = account.username;
+        name.className = "text-xl font-semibold mb-3";
+
+        const status = document.createElement("span");
+        status.className = "text-sm mb-3 inline-block px-2 py-1 rounded-full";
+        
+        if (account.sold) {
+          sold++;
+          status.textContent = "SOLD";
+          status.className += " bg-red-600 text-white";
+          card.appendChild(name);
+          card.appendChild(status);
+          soldList.appendChild(card);
+        } else {
+          available++;
+          status.textContent = "Available";
+          status.className += " bg-green-600 text-white";
+
+          const buyButton = document.createElement("a");
+          buyButton.href = discordURL;
+          buyButton.target = "_blank";
+          buyButton.className = "bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium px-4 py-2 rounded transition";
+          buyButton.textContent = "Buy on Discord";
+
+          card.appendChild(name);
+          card.appendChild(status);
+          card.appendChild(buyButton);
+          availableList.appendChild(card);
+        }
+      });
+
+      totalCount.textContent = accounts.length;
+      soldCount.textContent = sold;
+      availableCount.textContent = available;
+    }
+
+    renderShop();
+  </script>
+</body>
+</html>
